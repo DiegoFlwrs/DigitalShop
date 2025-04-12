@@ -19,8 +19,8 @@ android:background="@drawable/loginbkg"
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="40dp"
-    app:cardCornerRadius="30dp"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="20dp"
     android:background="@drawable/custom_text"
     app:cardBackgroundColor="@color/white"
@@ -71,13 +71,13 @@ android:background="@drawable/loginbkg"
             android:layout_marginTop="40dp"
             android:textColorHint="#545556"
             />
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:id="@+id/btnLogin"
             android:text="Iniciar Sesión"
             android:layout_marginTop="30dp"
-            android:backgroundTint="@color/purple_800"
+            android:background="@drawable/bg_blue_with_border"
             android:textColor="@color/white"
             />
     </LinearLayout>
