@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.digitalshop.R
 import com.example.digitalshop.ui.login.login
+import com.example.digitalshop.ui.register.register
 
 class inicio : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +23,13 @@ class inicio : AppCompatActivity() {
         }
 
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLogin)
-        btnLogin.setOnClickListener{
+        val btnCrearCuenta = findViewById<AppCompatButton>(R.id.btnCrearCuenta)
+        btnLogin.setOnClickListener {
             startActivity(Intent(this, login::class.java))
+        }
+
+        btnCrearCuenta.setOnClickListener {
+            startActivity(Intent(this, register::class.java))
         }
     }
 }
