@@ -1,4 +1,4 @@
-package com.example.digitalshop
+package com.example.digitalshop.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,8 @@ import android.animation.ValueAnimator
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.digitalshop.principal.inicio
+import com.example.digitalshop.R
+import com.example.digitalshop.ui.principal.inicio
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,12 +17,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val textView = findViewById<TextView>(R.id.txtBienvenido) // Asegúrate de que el ID sea correcto
-        val text = "Bienvenido a DigitalShop"
+        val text = "DIGITAL SHOP"
 
         // Animación de texto: Mostrar letra por letra
         textView.text = ""
         val animator = ValueAnimator.ofInt(0, text.length)
-        animator.duration = 2000 // Duración total de la animación (2 segundos)
+        animator.duration = 1500 // Duración total de la animación (2 segundos)
         animator.interpolator = LinearInterpolator()  // Hacer la animación más fluida
         animator.addUpdateListener { animation ->
             val index = animation.animatedValue as Int
