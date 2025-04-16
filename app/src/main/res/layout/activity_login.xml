@@ -55,6 +55,8 @@ android:background="@drawable/loginbkg"
             android:textColorHighlight="@color/cardview_dark_background"
             android:layout_marginTop="40dp"
             android:textColorHint="#545556"
+            android:maxLines="1"
+            android:inputType="textEmailAddress"
             />
         <EditText
             android:layout_width="match_parent"
@@ -70,6 +72,7 @@ android:background="@drawable/loginbkg"
             android:textColorHighlight="@color/cardview_dark_background"
             android:layout_marginTop="40dp"
             android:textColorHint="#545556"
+            android:maxLines="1"
             />
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"

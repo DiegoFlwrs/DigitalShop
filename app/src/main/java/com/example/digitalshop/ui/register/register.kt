@@ -2,6 +2,7 @@ package com.example.digitalshop.ui.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import android.widget.Toast
 import com.example.digitalshop.data.services.objects.RetrofitInstance
 import com.example.digitalshop.ui.market.Market
 import com.example.digitalshop.ui.principal.inicio
+import es.dmoral.toasty.Toasty
 
 class register : AppCompatActivity() {
     private lateinit var txtNombre: EditText
@@ -43,7 +45,11 @@ class register : AppCompatActivity() {
             val confirm = txtConfirmPassword.text.toString()
 
             if (password != confirm) {
-                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                Toasty.error(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT, true)
+                    .apply {
+                        setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
+                    }.show();
                 return@setOnClickListener
             }
 
@@ -59,17 +65,29 @@ class register : AppCompatActivity() {
                     response: Response<com.example.digitalshop.data.services.model.RegisterResponse>
                 ) {
                     if (response.isSuccessful) {
-                        Toast.makeText(this@register, "Usuario registrado correctamente", Toast.LENGTH_LONG).show()
+                        Toasty.success(this@register, "Usuario registrado correctamente", Toast.LENGTH_SHORT, true)
+                            .apply {
+                                setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
+                            }
+                            .show();
+                      //  Toast.makeText(this@register, "Usuario registrado correctamente", Toast.LENGTH_LONG).show()
                         startActivity(Intent(this@register, inicio::class.java))
                         finish()
-                        // Aquí podrías redirigir al login
                     } else {
-                        Toast.makeText(this@register, "Error: ${response.code()}", Toast.LENGTH_LONG).show()
+                        Toasty.error(this@register, "Error: ${response.code()}", Toast.LENGTH_SHORT, true)
+                            .apply {
+                                setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
+                            }.show();
+                        //Toast.makeText(this@register, "Error: ${response.code()}", Toast.LENGTH_LONG).show()
                     }
                 }
 
                 override fun onFailure(call: Call<com.example.digitalshop.data.services.model.RegisterResponse>, t: Throwable) {
-                    Toast.makeText(this@register, "Error de red: ${t.message}", Toast.LENGTH_LONG).show()
+                    Toasty.error(this@register, "Error de red: ${t.message}", Toast.LENGTH_SHORT, true)
+                        .apply {
+                            setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
+                        }.show();
+                    //Toast.makeText(this@register, "Error de red: ${t.message}", Toast.LENGTH_LONG).show()
                 }
             })
         }

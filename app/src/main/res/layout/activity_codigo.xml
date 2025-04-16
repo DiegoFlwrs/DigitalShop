@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.market.Market"
-    android:background="#384FA2"
+    tools:context=".ui.resetPasword.codigo"
     android:orientation="vertical"
+    android:background="@drawable/bg_azul_degradado"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,40 +26,49 @@
             android:layout_marginVertical="50dp"
             />
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="¿Que quieres \nComprar?"
-        android:textSize="38dp"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_marginVertical="20dp"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_login"
         android:orientation="vertical"
-        android:paddingHorizontal="24dp"
-        android:paddingBottom="10dp"
-        android:gravity="bottom"
+        android:paddingTop="20dp"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Restablecer Contraseña"
+            android:id="@+id/txtLogin"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/purple_800"
+            android:layout_marginVertical="10dp"
+            />
         <EditText
-            android:id="@+id/txtBuscar"
+            android:id="@+id/txtCodigo"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/marco_gris"
-            android:hint="Buscar"
+            android:hint="Codigo"
             android:padding="8dp"
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:textColorHint="#545556"
             android:drawablePadding="8dp"
-            android:drawableLeft="@drawable/buscar"
+            android:drawableLeft="@drawable/baseline_person_24"
             android:textColorHighlight="@color/cardview_dark_background"
-            android:layout_marginBottom="20dp"
+            android:layout_margin="20dp"
             android:maxLines="1"
             />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/btnContinuar"
+            android:text="Continuar"
+            android:background="@drawable/bg_blue_with_border"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="20dp"
+            />
     </LinearLayout>
-
 </LinearLayout>

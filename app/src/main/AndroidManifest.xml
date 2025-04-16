@@ -17,6 +17,15 @@
         android:theme="@style/Theme.DigitalShop"
         tools:targetApi="31">
         <activity
+            android:name=".ui.resetPasword.restablecerContra"
+            android:exported="false" />
+        <activity
+            android:name=".ui.resetPasword.codigo"
+            android:exported="false" />
+        <activity
+            android:name=".ui.resetPasword.reset"
+            android:exported="false" />
+        <activity
             android:name=".ui.market.Market"
             android:exported="false" />
         <activity

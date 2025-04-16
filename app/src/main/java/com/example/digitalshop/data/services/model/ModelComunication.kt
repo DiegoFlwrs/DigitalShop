@@ -59,3 +59,29 @@ data class RegisterResponse(
     val roles: List<UserRoleResponse>
 )
 
+//para restablecer contraseña
+
+data class ResetPasswordRequest(
+    val email: String
+)
+
+
+data class VerifyCodeRequest(
+    val email: String,
+    val code: String
+)
+
+data class VerifyCodeResponse(
+    val valid: Boolean
+)
+
+data class ResetPasswordConfirmationRequest(
+    val email: String,
+    val code: String,
+    val newPassword: String
+)
+
+data class CommonResponse(
+    val message: String,
+    val status: String
+)
