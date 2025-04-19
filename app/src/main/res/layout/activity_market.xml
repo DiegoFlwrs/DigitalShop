@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.market.Market"
-    android:background="#384FA2"
+    android:background="@drawable/bg_azul_degradado"
     android:orientation="vertical"
     >
     <LinearLayout
@@ -18,10 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="DIGITAL SHOP"
-            android:textSize="28dp"
+            android:textSize="35dp"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/marron"
             android:layout_marginVertical="50dp"
             />
     </LinearLayout>
@@ -32,8 +32,17 @@
         android:textSize="38dp"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/marron"
         android:layout_marginVertical="20dp"
+        />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/circulo"
         />
     <LinearLayout
         android:layout_width="match_parent"

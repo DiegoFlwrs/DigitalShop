@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -36,9 +38,10 @@ class login : AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         val loginButton = findViewById<AppCompatButton>(R.id.loginButton)
         val resetPassword = findViewById<TextView>(R.id.txtResetPassword)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
-        resetPassword.setOnClickListener{
-            startActivity(Intent(this,reset::class.java))
+        resetPassword.setOnClickListener {
+            startActivity(Intent(this, reset::class.java))
         }
 
         loginButton.setOnClickListener {
@@ -46,63 +49,74 @@ class login : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                loginUser(email, password)
+                // Mostrar solo el spinner y deshabilitar el botón
+                loginButton.isEnabled = false
+                loginButton.text = ""
+                progressBar.visibility = View.VISIBLE
+
+                loginUser(email, password, loginButton, progressBar)
             } else {
                 Toasty.info(this, "Por favor, ingresa tus credenciales", Toast.LENGTH_SHORT, true)
                     .apply {
-                        setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
-                    }
-                    .show();
-              //  Toast.makeText(this, "Por favor, ingresa tus credenciales", Toast.LENGTH_SHORT).show()
+                        setGravity(Gravity.BOTTOM, 0, 1800)
+                    }.show()
             }
         }
-
     }
-    private fun loginUser(email: String, password: String) {
+
+    private fun loginUser(
+        email: String,
+        password: String,
+        loginButton: AppCompatButton,
+        progressBar: ProgressBar
+    ) {
         val loginRequest = LoginRequest(email, password)
         val call = RetrofitInstance.authService.login(loginRequest)
 
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                // Restaurar botón
+                loginButton.isEnabled = true
+                loginButton.text = "Ingresar"
+                progressBar.visibility = View.GONE
+
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
                     loginResponse?.let {
-                        // Guarda el JWT en SharedPreferences
                         saveToken(it.access_token)
                         Toasty.success(this@login, "Bienvenido, ${it.user.email}", Toast.LENGTH_SHORT, true)
                             .apply {
-                                setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
-                            }
-                            .show();
-                        //Toast.makeText(this@login, "Bienvenido, ${it.user.email}", Toast.LENGTH_SHORT).show()
+                                setGravity(Gravity.BOTTOM, 0, 1800)
+                            }.show()
                         startActivity(Intent(this@login, Market::class.java))
                         finish()
                     }
                 } else {
                     Toasty.error(this@login, "Credenciales inválidas", Toast.LENGTH_SHORT, true)
                         .apply {
-                            setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
-                        }.show();
-                    //Toast.makeText(this@login, "Credenciales inválidas", Toast.LENGTH_SHORT).show()
-                    Log.v("login", "Credenciales inválidas")
+                            setGravity(Gravity.BOTTOM, 0, 1800)
+                        }.show()
                 }
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                // Restaurar botón
+                loginButton.isEnabled = true
+                loginButton.text = "Ingresar"
+                progressBar.visibility = View.GONE
+
                 Toasty.error(this@login, "Error: ${t.message}", Toast.LENGTH_SHORT, true)
                     .apply {
-                        setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
-                    }.show();
-                //Toast.makeText(this@login, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-                Log.v("login", "Error: ${t.message}")
+                        setGravity(Gravity.BOTTOM, 0, 1800)
+                    }.show()
             }
         })
     }
+
     private fun saveToken(token: String) {
         val sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("JWT_TOKEN", token)
         editor.apply()
     }
-
 }
