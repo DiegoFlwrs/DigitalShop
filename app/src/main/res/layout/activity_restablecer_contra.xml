@@ -23,8 +23,27 @@
             android:textAlignment="center"
             android:textStyle="bold"
             android:textColor="@color/marron"
-            android:layout_marginVertical="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
             />
+        <FrameLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/borde_redondeado"
+            android:clipToOutline="true"
+            android:elevation="4dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/border_negro_kalu"
+                android:scaleType="centerCrop"
+                android:clipToOutline="true"
+                />
+        </FrameLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,15 +97,29 @@
             android:layout_margin="20dp"
             android:maxLines="1"
             />
-        <androidx.appcompat.widget.AppCompatButton
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/btnContinuar"
-            android:text="Continuar"
-            android:background="@drawable/bg_blue_with_border"
-            android:textColor="@color/white"
-            android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="20dp"
-            />
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/btnContinuar"
+                android:text="Continuar"
+                android:background="@drawable/bg_blue_with_border"
+                android:textColor="@color/white"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                />
+            <ProgressBar
+                android:id="@+id/progressBarRegister"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:indeterminateTint="@color/white"/>
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

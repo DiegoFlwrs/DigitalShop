@@ -75,7 +75,6 @@ class login : AppCompatActivity() {
 
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                // Restaurar botón
                 loginButton.isEnabled = true
                 loginButton.text = "Ingresar"
                 progressBar.visibility = View.GONE
@@ -100,7 +99,6 @@ class login : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                // Restaurar botón
                 loginButton.isEnabled = true
                 loginButton.text = "Ingresar"
                 progressBar.visibility = View.GONE

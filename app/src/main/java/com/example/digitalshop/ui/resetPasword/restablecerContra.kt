@@ -2,7 +2,9 @@ package com.example.digitalshop.ui.resetPasword
 
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +19,8 @@ import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.launch
 
 class restablecerContra : AppCompatActivity() {
+    private lateinit var progressBar: ProgressBar
+    private lateinit var btnContinuar: AppCompatButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,7 +28,8 @@ class restablecerContra : AppCompatActivity() {
 
         val txtPassword = findViewById<EditText>(R.id.txtContraseña)
         val txtConfirmPassword  = findViewById<EditText>(R.id.txtConfirmarContra)
-        val btnContinuar = findViewById<AppCompatButton>(R.id.btnContinuar)
+        btnContinuar = findViewById(R.id.btnContinuar)
+        progressBar = findViewById(R.id.progressBarRegister)
 
         val emailInput = intent.getStringExtra("EMAIL_KEY") ?: ""
         val codeInput = intent.getStringExtra("CODIGO_KEY") ?: ""
@@ -45,7 +50,9 @@ class restablecerContra : AppCompatActivity() {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
+            btnContinuar.isEnabled = false
+            btnContinuar.text = ""
+            progressBar.visibility = View.VISIBLE
             resetPassword(emailInput, codeInput, password)
         }
     }
@@ -57,6 +64,9 @@ class restablecerContra : AppCompatActivity() {
             try {
                 val response = RetrofitInstance.authService.resetPassword(resetPasswordRequest)
                 if (response.isSuccessful) {
+                    btnContinuar.isEnabled = true
+                    btnContinuar.text = "CONTINUAR"
+                    progressBar.visibility = View.GONE
                     Toasty.success(
                         this@restablecerContra,
                         "Contraseña restablecida con éxito",
@@ -66,6 +76,9 @@ class restablecerContra : AppCompatActivity() {
                         }.show()
                     finish()
                 } else {
+                    btnContinuar.isEnabled = true
+                    btnContinuar.text = "CONTINUAR"
+                    progressBar.visibility = View.GONE
                     Toasty.error(
                         this@restablecerContra,
                         "Error al restablecer la contraseña",
@@ -75,6 +88,9 @@ class restablecerContra : AppCompatActivity() {
                         }.show()
                 }
             } catch (e: Exception) {
+                btnContinuar.isEnabled = true
+                btnContinuar.text = "CONTINUAR"
+                progressBar.visibility = View.GONE
                 Toasty.error(
                     this@restablecerContra,
                     "Error de conexión: ${e.message}",

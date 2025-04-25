@@ -3,7 +3,9 @@ package com.example.digitalshop.ui.register
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -26,6 +28,7 @@ class register : AppCompatActivity() {
     private lateinit var txtPassword: EditText
     private lateinit var txtConfirmPassword: EditText
     private lateinit var btnRegistrar: AppCompatButton
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,7 @@ class register : AppCompatActivity() {
         txtPassword = findViewById(R.id.txtContraseña)
         txtConfirmPassword = findViewById(R.id.txtConfirmContraseña)
         btnRegistrar = findViewById(R.id.btnRegistar)
+        progressBar = findViewById(R.id.progressBarRegister)
 
         btnRegistrar.setOnClickListener {
             val nombre = txtNombre.text.toString()
@@ -45,52 +49,61 @@ class register : AppCompatActivity() {
             val confirm = txtConfirmPassword.text.toString()
 
             if (password != confirm) {
-               // Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                 Toasty.error(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT, true)
                     .apply {
-                        setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
-                    }.show();
+                        setGravity(Gravity.BOTTOM, 0, 1800)
+                    }.show()
                 return@setOnClickListener
             }
 
-            val request = RegisterRequest(
-                name = nombre,
-                email = correo,
-                password = password
-            )
+            // Mostrar loading
+            btnRegistrar.isEnabled = false
+            btnRegistrar.text = ""
+            progressBar.visibility = View.VISIBLE
 
-            RetrofitInstance.userService.registerUser(request).enqueue(object : Callback<com.example.digitalshop.data.services.model.RegisterResponse> {
+            val request = RegisterRequest(name = nombre, email = correo, password = password)
+
+            RetrofitInstance.userService.registerUser(request).enqueue(object :
+                Callback<com.example.digitalshop.data.services.model.RegisterResponse> {
                 override fun onResponse(
                     call: Call<com.example.digitalshop.data.services.model.RegisterResponse>,
                     response: Response<com.example.digitalshop.data.services.model.RegisterResponse>
                 ) {
+                    // Ocultar loading
+                    btnRegistrar.isEnabled = true
+                    btnRegistrar.text = "Registrar"
+                    progressBar.visibility = View.GONE
+
                     if (response.isSuccessful) {
                         Toasty.success(this@register, "Usuario registrado correctamente", Toast.LENGTH_SHORT, true)
                             .apply {
-                                setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
-                            }
-                            .show();
-                      //  Toast.makeText(this@register, "Usuario registrado correctamente", Toast.LENGTH_LONG).show()
+                                setGravity(Gravity.BOTTOM, 0, 1800)
+                            }.show()
                         startActivity(Intent(this@register, inicio::class.java))
                         finish()
                     } else {
                         Toasty.error(this@register, "Error: ${response.code()}", Toast.LENGTH_SHORT, true)
                             .apply {
-                                setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
-                            }.show();
-                        //Toast.makeText(this@register, "Error: ${response.code()}", Toast.LENGTH_LONG).show()
+                                setGravity(Gravity.BOTTOM, 0, 1800)
+                            }.show()
                     }
                 }
 
-                override fun onFailure(call: Call<com.example.digitalshop.data.services.model.RegisterResponse>, t: Throwable) {
+                override fun onFailure(
+                    call: Call<com.example.digitalshop.data.services.model.RegisterResponse>,
+                    t: Throwable
+                ) {
+                    // Ocultar loading
+                    btnRegistrar.isEnabled = true
+                    btnRegistrar.text = "Registrar"
+                    progressBar.visibility = View.GONE
+
                     Toasty.error(this@register, "Error de red: ${t.message}", Toast.LENGTH_SHORT, true)
                         .apply {
-                            setGravity(Gravity.BOTTOM, 0, 1800)  // Aquí especificamos la posición
-                        }.show();
-                    //Toast.makeText(this@register, "Error de red: ${t.message}", Toast.LENGTH_LONG).show()
+                            setGravity(Gravity.BOTTOM, 0, 1800)
+                        }.show()
                 }
             })
         }
-
     }
 }

@@ -16,15 +16,13 @@ import retrofit2.http.POST
 interface AuthService {
     @POST("auth/login")
     fun login(@Body credentials: LoginRequest): Call<LoginResponse>
-    // Enviar código de restablecimiento al correo
+
     @POST("auth/send-code")
     suspend fun sendResetCode(@Body request: ResetPasswordRequest): Response<CommonResponse>
 
-    // Verificar el código
     @POST("auth/verify-code")
     suspend fun verifyCode(@Body request: VerifyCodeRequest): Response<VerifyCodeResponse>
 
-    // Restablecer la contraseña
     @POST("auth/reset-password")
     suspend fun resetPassword(@Body request: ResetPasswordConfirmationRequest): Response<CommonResponse>
 
