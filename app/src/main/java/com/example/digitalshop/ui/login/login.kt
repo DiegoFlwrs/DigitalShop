@@ -49,7 +49,6 @@ class login : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                // Mostrar solo el spinner y deshabilitar el botón
                 loginButton.isEnabled = false
                 loginButton.text = ""
                 progressBar.visibility = View.VISIBLE

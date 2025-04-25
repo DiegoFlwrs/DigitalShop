@@ -68,19 +68,37 @@
             android:drawableLeft="@drawable/buscar"
             android:textColorHighlight="@color/cardview_dark_background"
             android:layout_marginBottom="20dp"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnBuscar"
+        <FrameLayout
+            android:id="@+id/searchFrame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buscar"
-            android:textColor="@android:color/white"
-            android:background="@drawable/bg_blue_with_border"
-            android:layout_gravity="end|bottom"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="8dp"
-            />
+            android:paddingBottom="30dp"
+            android:layout_gravity="end|bottom">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnBuscar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_blue_with_border"
+                android:layout_gravity="end|bottom"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="8dp"
+                />
+            <ProgressBar
+                android:id="@+id/progressBarRegister"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:indeterminateTint="@color/white"/>
+        </FrameLayout>
     </LinearLayout>
 
 </LinearLayout>

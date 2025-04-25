@@ -56,7 +56,6 @@ class register : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Mostrar loading
             btnRegistrar.isEnabled = false
             btnRegistrar.text = ""
             progressBar.visibility = View.VISIBLE
@@ -69,7 +68,6 @@ class register : AppCompatActivity() {
                     call: Call<com.example.digitalshop.data.services.model.RegisterResponse>,
                     response: Response<com.example.digitalshop.data.services.model.RegisterResponse>
                 ) {
-                    // Ocultar loading
                     btnRegistrar.isEnabled = true
                     btnRegistrar.text = "Registrar"
                     progressBar.visibility = View.GONE
